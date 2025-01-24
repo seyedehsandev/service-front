@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.auth-input {
+    @apply py-2 bg-transparent border-b-2 border-teal-800 text-teal-800 
+           outline-none placeholder:text-teal-800 placeholder:font-semibold;
+  }

@@ -42,8 +42,10 @@ const hasCapitalLetter = (value) => ({
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; 
+import {useStore} from '../store/useStore';
 
-
+const store = useStore();
+const findedUser = store.findUser
 const router = useRouter()
 const notyf = new Notyf();
 
@@ -72,13 +74,18 @@ const notyf = new Notyf();
 
             if(!v$.value.$invalid){
 
-                console.log(user)
+                const isAuth = findedUser(user.username , user.password)
 
                 v$.value.$reset()
                 user.password=''
                 user.username=''
-                notyf.success('You have been successfully Loged in!');
-                router.push("/dashboard")
+                if(isAuth){
+                    router.push("/dashboard")
+                    notyf.success('You have been successfully Loged in!');
+                }else {
+                    notyf.error('incorrect username or password');
+                    console.log(isAuth); 
+                }
                 
 
             }else{

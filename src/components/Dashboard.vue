@@ -11,12 +11,12 @@
 </svg>
 </button>
         <ul class="flex flex-col gap-y-3">
-            <router-link to="/"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Home</li></router-link>
-            <router-link to="/reports"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Reports</li></router-link>
-            <router-link to="/cars"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Cars</li></router-link>
-            <router-link to="/drivers"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Drivers</li></router-link>
-            <router-link to="/travels"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Travels</li></router-link>
-            <router-link to="/auth/login"><li class="font-bold px-3 py-2 bg-red-400 hover:bg-red-500 rounded-md transition-all duration-300 ease-in-out cursor-pointer">Logout</li></router-link>
+            <router-link to="/"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">داشبورد</li></router-link>
+            <router-link to="/reports"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">گزارشات</li></router-link>
+            <router-link to="/cars"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">خودرو ها</li></router-link>
+            <router-link to="/drivers"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">راننده ها</li></router-link>
+            <router-link to="/triplist"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">سفر ها</li></router-link>
+            <router-link to="/auth/login"><li class="font-bold px-3 py-2 bg-red-400 hover:bg-red-500 rounded-md transition-all duration-300 ease-in-out cursor-pointer">خروج</li></router-link>
         </ul>
     </div>
     <router-view>

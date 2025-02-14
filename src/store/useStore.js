@@ -15,7 +15,7 @@ export const useStore = defineStore("store", {
     ],
     drivers: [],
     reports: [],
-    travels: [],
+    trips: [],
     repairHistories: [],
   }),
   getters: {
@@ -24,6 +24,9 @@ export const useStore = defineStore("store", {
   actions: {
     addCar(newcar) {
       this.cars = [...this.cars, newcar];
+    },
+    addTrip(newtrip) {
+      this.trips = [...this.trips, newtrip];
     },
     addDriver(newdriver) {
       this.drivers = [...this.drivers, newdriver];

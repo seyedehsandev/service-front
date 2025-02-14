@@ -8,7 +8,7 @@ import AddDailyReport from "./../components/AddDailyReport.vue";
 import CarForm from "./../components/CarForm.vue";
 import DriverForm from "./../components/DriverForm.vue";
 import RepairHistory from "./../components/RepairHistory.vue";
-
+import TripList from "./../components/TripList.vue";
 const routes = [
   { path: "/", component: Home },
   { path: "/auth/login", component: Login },
@@ -16,6 +16,7 @@ const routes = [
   { path: "/cars", component: CarForm },
   { path: "/drivers", component: DriverForm },
   { path: "/repairhistory", component: RepairHistory },
+  { path: "/triplist", component: TripList },
 
   {
     path: "/dashboard",

@@ -27,7 +27,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import {reactive  , ref} from 'vue'
+import {reactive  , ref , computed} from 'vue'
 import useVuelidate from '@vuelidate/core'
 import { minLength , required , email } from '@vuelidate/validators'
 const hasSpecialCharacter = (value) => ({
@@ -46,6 +46,7 @@ import {useStore} from '../store/useStore';
 
 const store = useStore();
 const findedUser = store.findUser
+const isLoged = computed(() => store.isLogedIn)
 const router = useRouter()
 const notyf = new Notyf();
 
@@ -80,9 +81,10 @@ const notyf = new Notyf();
                 user.password=''
                 user.username=''
                 if(isAuth){
-                    router.push("/dashboard")
-                    notyf.success('You have been successfully Loged in!');
-                }else {
+                        store.loginUser() 
+                        router.push("/dashboard")
+                        notyf.success('You have been successfully Loged in!')
+                    }else {
                     notyf.error('incorrect username or password');
                     console.log(isAuth); 
                 }

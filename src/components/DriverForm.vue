@@ -147,7 +147,7 @@ import { useStore } from '../store/useStore';
 import { storeToRefs } from 'pinia';
 
 const isFormOpen = ref(false);
-const editingIndex = ref(null); // ایندکس آیتم در حال ویرایش
+const editingIndex = ref(null);
 
 const { drivers } = storeToRefs(useStore());
 const store = useStore();

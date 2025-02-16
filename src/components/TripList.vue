@@ -215,7 +215,6 @@ const tripData = reactive({
     date: new Date().toISOString().split('T')[0]
 });
 
-// بقیه توابع بدون تغییر باقی می‌مانند
 function resetForm() {
     Object.assign(tripData, {
         driver: '',
@@ -240,7 +239,7 @@ function submitting() {
     };
 
     if (editingIndex.value !== null) {
-        store.trips[editingIndex.value] = trip;
+        store.updateTrip(editingIndex.value, trip);
     } else {
         store.addTrip(trip);
     }
@@ -249,5 +248,17 @@ function submitting() {
     isFormOpen.value = false;
 }
 
-// بقیه توابع بدون تغییر
+function DeleteItem(index) {
+    store.deleteTrip(index);
+}
+function populateForm(data) {
+    Object.assign(tripData, data);
+}
+
+function editData(data, index) {
+    isFormOpen.value = true;
+    editingIndex.value = index; 
+    populateForm(data);
+}
+
 </script>

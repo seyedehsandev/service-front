@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import {useStore} from '../store/useStore';
 import {computed} from "vue";
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const store = useStore();
 const isLoged = computed(() => store.logout);
 

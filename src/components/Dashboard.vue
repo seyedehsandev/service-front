@@ -1,50 +1,112 @@
 <template>
-    <!-- <div class="relative top-0 left-0">
-        <button class="absolute top-4 left-4 rounded-lg hover:bg-slate-300 py-3 px-2 transition-all duration-300 ease-in-out" @click="toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-  <path fill-rule="evenodd" d="M3 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 5.25Zm0 4.5A.75.75 0 0 1 3.75 9h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 9.75Zm0 4.5a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Zm0 4.5a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-</svg>
-</button>
-        <div class="w-[300px] bg-slate-500 h-screen relative transition-all duration-1000 ease-in-out text-center pt-16 px-2" v-if="isOpen" >
-            <button class="absolute top-2 right-2 rounded-lg hover:bg-slate-300 py-3 px-2 transition-all duration-300 ease-in-out" @click="toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-  <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-</svg>
-</button>
-        <ul class="flex flex-col gap-y-3">
-            <router-link to="/"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">داشبورد</li></router-link>
-            <router-link to="dashboard/reports"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">گزارشات</li></router-link>
-            <router-link to="dashboard/cars"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">خودرو ها</li></router-link>
-            <router-link to="dashboard/drivers"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">راننده ها</li></router-link>
-            <router-link to="dashboard/triplist"><li class="font-bold px-3 py-2 bg-slate-400 hover:bg-slate-200 rounded-md transition-all duration-300 ease-in-out cursor-pointer">سفر ها</li></router-link>
-            <router-link to="/auth/login"><li class="font-bold px-3 py-2 bg-red-400 hover:bg-red-500 rounded-md transition-all duration-300 ease-in-out cursor-pointer">خروج</li></router-link>
-        </ul>
+    <div dir="rtl" class="font-vazir">
+      <div class="w-screen min-h-screen flex rounded-md bg-gray-50">
+        <div class="w-full px-4 md:px-8">
+          <header class="border-b border-gray-200">
+            <h1 class="text-2xl md:text-3xl py-4 px-2 font-bold text-gray-800">داشبورد</h1>
+          </header>
+  
+          <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-8">
+            <router-link 
+              to="/dashboard/drivers"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">راننده‌ها</h3>
+                <i class="fas fa-user text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت اطلاعات راننده‌ها</p>
+            </router-link>
+  
+            <router-link 
+              to="/dashboard/cars"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">خودروها</h3>
+                <i class="fas fa-car text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت اطلاعات خودروها</p>
+            </router-link>
+  
+            <router-link 
+              to="/dashboard/triplist"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">سفرها</h3>
+                <i class="fas fa-route text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت اطلاعات سفرها</p>
+            </router-link>
+  
+            <router-link 
+              to="/dashboard/repairhistory"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">تعمیرات</h3>
+                <i class="fas fa-tools text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت اطلاعات تعمیرات</p>
+            </router-link>
+  
+            <router-link 
+              to="/dashboard/reports"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">گزارشات</h3>
+                <i class="fas fa-chart-line text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مشاهده گزارشات سیستم</p>
+            </router-link>
+  
+            <router-link 
+              to="/dashboard/insurancecheck"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">بیمه</h3>
+                <i class="fas fa-file-contract text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت بیمه خودروها</p>
+            </router-link>
+  
+            <!-- کارت سوخت -->
+            <router-link 
+              to="/dashboard/fuel"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">سوخت</h3>
+                <i class="fas fa-gas-pump text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">مدیریت مصرف سوخت</p>
+            </router-link>
+  
+            <!-- کارت لاگین -->
+            <router-link 
+              to="/auth/login"
+              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
+            >
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-800">لاگین</h3>
+                <i class="fas fa-sign-in-alt text-blue-500 text-2xl"></i>
+              </div>
+              <p class="text-sm text-gray-500 mt-2">ورود به سیستم</p>
+            </router-link>
+          </main>
+        </div>
+      </div>
     </div>
-    <router-view/>
-    </div>
-     -->
-</template>
-
-<script setup>
-// import { ref } from 'vue'
-// import { useRouter } from 'vue-router';
-
-// const router = useRouter()
-
-// const goToReport = () => {
-//     router.push("/dashboard/report")
-// }
-// let isOpen = ref(false)
-
-// let toggle = () => {
-
-//     isOpen.value = !isOpen.value
-
-// }
-
-
-   
-</script>
-
-<style scoped>
-
-</style>
+  </template>
+  
+  <script setup>
+  import { useRouter } from 'vue-router';
+  
+  const router = useRouter();
+  </script>
+  
+  <style scoped>
+  </style>

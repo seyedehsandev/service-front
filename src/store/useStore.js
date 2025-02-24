@@ -1,10 +1,8 @@
 import { defineStore } from "pinia";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 export const useStore = defineStore("store", {
   state: () => ({
+    isLogedIn: false,
     cars: [],
     users: [
       {
@@ -22,11 +20,23 @@ export const useStore = defineStore("store", {
     carCount: (state) => state.cars.length,
   },
   actions: {
+    loginUser() {
+      this.isLogedIn = true;
+    },
+    logout() {
+      this.isLogedIn = false;
+    },
     addCar(newcar) {
       this.cars = [...this.cars, newcar];
     },
     addTrip(newtrip) {
       this.trips = [...this.trips, newtrip];
+    },
+    updateTrip(index, newTrip) {
+      this.trips[index] = newTrip;
+    },
+    deleteTrip(index) {
+      this.trips.splice(index, 1);
     },
     addDriver(newdriver) {
       this.drivers = [...this.drivers, newdriver];
@@ -34,7 +44,9 @@ export const useStore = defineStore("store", {
     addRepairHistories(newRepairHistory) {
       this.repairHistories = [...this.repairHistories, newRepairHistory];
     },
-
+    deleteDriver(index) {
+      this.drivers.splice(index, 1);
+    },
     findUser(username, password) {
       return this.users.find(
         (user) => user.username === username && user.password === password

@@ -5,6 +5,7 @@ import { createPinia } from "pinia";
 import piniaPersist from "pinia-plugin-persistedstate";
 //@ts-ignore
 import router from "./router";
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const pinia = createPinia();
 pinia.use(piniaPersist); 

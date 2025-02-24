@@ -17,7 +17,7 @@ const routes = [
 
   { path: "/dashboard/cars", component: CarForm },
   { path: "/dashboard/drivers", component: DriverForm },
-  { path: "/dashboardrepairhistory", component: RepairHistory },
+  { path: "/dashboard/repairhistory", component: RepairHistory },
   { path: "/dashboard/triplist", component: TripList },
 
   {

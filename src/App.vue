@@ -12,7 +12,7 @@ const isLoged = computed(() => store.isLogedIn)
 <template>
 
   <div>
-   <MenuBar v-if="isLoged"/>
+   <MenuBar v-if="isLoged" />
     <router-view/>
   </div>
 </template>

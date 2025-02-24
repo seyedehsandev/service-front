@@ -44,7 +44,9 @@ export const useStore = defineStore("store", {
     addRepairHistories(newRepairHistory) {
       this.repairHistories = [...this.repairHistories, newRepairHistory];
     },
-
+    deleteDriver(index) {
+      this.drivers.splice(index, 1);
+    },
     findUser(username, password) {
       return this.users.find(
         (user) => user.username === username && user.password === password

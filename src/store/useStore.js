@@ -6,6 +6,8 @@ export const useStore = defineStore(
   () => {
     // State
     const isLogedIn = ref(false);
+    const authUser = ref(null);
+    const authError = ref(null);
     const cars = ref([]);
     const users = ref([
       { id: 1, username: "ehsan@gmail.com", password: "0147AAaa#" },
@@ -19,8 +21,25 @@ export const useStore = defineStore(
     const carCount = computed(() => cars.value.length);
 
     // Actions
-    const loginUser = () => (isLogedIn.value = true);
-    const logout = () => (isLogedIn.value = false);
+    const login = (username, password) => {
+      const user = findUser(username, password);
+      if (user) {
+        isLogedIn.value = true;
+        authUser.value = user;
+        authError.value = null;
+        return true;
+      } else {
+        authError.value = "Invalid username or password";
+        return false;
+      }
+    };
+
+    const logout = () => {
+      isLogedIn.value = false;
+      authUser.value = null;
+      authError.value = null;
+    };
+
     const addCar = (newCar) => cars.value.push(newCar);
     const addTrip = (newTrip) => trips.value.push(newTrip);
     const updateTrip = (index, newTrip) =>
@@ -30,11 +49,15 @@ export const useStore = defineStore(
     const addRepairHistories = (newRepair) =>
       repairHistories.value.push(newRepair);
     const deleteDriver = (index) => drivers.value.splice(index, 1);
-    const findUser = (u, p) =>
-      users.value.find((user) => user.username === u && user.password === p);
+    const findUser = (username, password) =>
+      users.value.find(
+        (user) => user.username === username && user.password === password
+      );
 
     return {
       isLogedIn,
+      authUser,
+      authError,
       cars,
       users,
       drivers,
@@ -42,14 +65,14 @@ export const useStore = defineStore(
       trips,
       repairHistories,
       carCount,
-      loginUser,
+      login,
       logout,
       addCar,
       addTrip,
       updateTrip,
       deleteTrip,
       addDriver,
-      addRepairHistories: addRepairHistories,
+      addRepairHistories,
       deleteDriver,
       findUser,
     };

@@ -8,7 +8,7 @@
   
           <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-8">
             <router-link 
-              to="/dashboard/drivers"
+              to="/drivers"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -19,7 +19,7 @@
             </router-link>
   
             <router-link 
-              to="/dashboard/cars"
+              to="/cars"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -30,7 +30,7 @@
             </router-link>
   
             <router-link 
-              to="/dashboard/triplist"
+              to="/trip-list"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -41,7 +41,7 @@
             </router-link>
   
             <router-link 
-              to="/dashboard/repairhistory"
+              to="/repair-history"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -52,7 +52,7 @@
             </router-link>
   
             <router-link 
-              to="/dashboard/reports"
+              to="/reports"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -63,7 +63,7 @@
             </router-link>
   
             <router-link 
-              to="/dashboard/insurancecheck"
+              to="/insurance-check"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -75,7 +75,7 @@
   
             <!-- کارت سوخت -->
             <router-link 
-              to="/dashboard/fuel"
+              to="/fuel"
               class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
             >
               <div class="flex items-center justify-between">
@@ -85,17 +85,6 @@
               <p class="text-sm text-gray-500 mt-2">مدیریت مصرف سوخت</p>
             </router-link>
   
-            <!-- کارت لاگین -->
-            <router-link 
-              to="/auth/login"
-              class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
-            >
-              <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold text-gray-800">لاگین</h3>
-                <i class="fas fa-sign-in-alt text-blue-500 text-2xl"></i>
-              </div>
-              <p class="text-sm text-gray-500 mt-2">ورود به سیستم</p>
-            </router-link>
           </main>
         </div>
       </div>

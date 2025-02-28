@@ -1,57 +1,81 @@
 import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
-export const useStore = defineStore("store", {
-  state: () => ({
-    isLogedIn: false,
-    cars: [],
-    users: [
-      {
-        id: 1,
-        username: "ehsan@gmail.com",
-        password: "0147AAaa#",
-      },
-    ],
-    drivers: [],
-    reports: [],
-    trips: [],
-    repairHistories: [],
-  }),
-  getters: {
-    carCount: (state) => state.cars.length,
-  },
-  actions: {
-    loginUser() {
-      this.isLogedIn = true;
-    },
-    logout() {
-      this.isLogedIn = false;
-    },
-    addCar(newcar) {
-      this.cars = [...this.cars, newcar];
-    },
-    addTrip(newtrip) {
-      this.trips = [...this.trips, newtrip];
-    },
-    updateTrip(index, newTrip) {
-      this.trips[index] = newTrip;
-    },
-    deleteTrip(index) {
-      this.trips.splice(index, 1);
-    },
-    addDriver(newdriver) {
-      this.drivers = [...this.drivers, newdriver];
-    },
-    addRepairHistories(newRepairHistory) {
-      this.repairHistories = [...this.repairHistories, newRepairHistory];
-    },
-    deleteDriver(index) {
-      this.drivers.splice(index, 1);
-    },
-    findUser(username, password) {
-      return this.users.find(
+export const useStore = defineStore(
+  "store",
+  () => {
+    // State
+    const isLogedIn = ref(false);
+    const authUser = ref(null);
+    const authError = ref(null);
+    const cars = ref([]);
+    const users = ref([
+      { id: 1, username: "ehsan@gmail.com", password: "0147AAaa#" },
+    ]);
+    const drivers = ref([]);
+    const reports = ref([]);
+    const trips = ref([]);
+    const repairHistories = ref([]);
+
+    // Getters
+    const carCount = computed(() => cars.value.length);
+
+    // Actions
+    const login = (username, password) => {
+      const user = findUser(username, password);
+      if (user) {
+        isLogedIn.value = true;
+        authUser.value = user;
+        authError.value = null;
+        return true;
+      } else {
+        authError.value = "Invalid username or password";
+        return false;
+      }
+    };
+
+    const logout = () => {
+      isLogedIn.value = false;
+      authUser.value = null;
+      authError.value = null;
+    };
+
+    const addCar = (newCar) => cars.value.push(newCar);
+    const addTrip = (newTrip) => trips.value.push(newTrip);
+    const updateTrip = (index, newTrip) =>
+      trips.value.splice(index, 1, newTrip);
+    const deleteTrip = (index) => trips.value.splice(index, 1);
+    const addDriver = (newDriver) => drivers.value.push(newDriver);
+    const addRepairHistories = (newRepair) =>
+      repairHistories.value.push(newRepair);
+    const deleteDriver = (index) => drivers.value.splice(index, 1);
+    const findUser = (username, password) =>
+      users.value.find(
         (user) => user.username === username && user.password === password
       );
-    },
+
+    return {
+      isLogedIn,
+      authUser,
+      authError,
+      cars,
+      users,
+      drivers,
+      reports,
+      trips,
+      repairHistories,
+      carCount,
+      login,
+      logout,
+      addCar,
+      addTrip,
+      updateTrip,
+      deleteTrip,
+      addDriver,
+      addRepairHistories,
+      deleteDriver,
+      findUser,
+    };
   },
-  persist: true,
-});
+  { persist: true }
+);

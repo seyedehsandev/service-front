@@ -9,12 +9,14 @@ import DriverForm from "./../components/DriverForm.vue";
 import RepairHistory from "./../components/RepairHistory.vue";
 import TripList from "./../components/TripList.vue";
 import InsuranceCheck from "./../components/InsuranceCheck.vue";
+import Expenses from "./../components/Expenses.vue";
+
 const routes = [
   { path: "/", component: Home },
   { path: "/auth/login", component: Login },
   { path: "/dashboard/reports", component: Report },
   { path: "/dashboard/insurancecheck", component: InsuranceCheck },
-
+  { path: "/dashboard/expenses", component: Expenses },
   { path: "/dashboard/cars", component: CarForm },
   { path: "/dashboard/drivers", component: DriverForm },
   { path: "/dashboard/repairhistory", component: RepairHistory },

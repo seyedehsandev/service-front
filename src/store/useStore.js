@@ -15,6 +15,7 @@ export const useStore = defineStore(
     const drivers = ref([]);
     const reports = ref([]);
     const trips = ref([]);
+    const expenses = ref([]);
     const repairHistories = ref([]);
 
     // Getters
@@ -31,6 +32,21 @@ export const useStore = defineStore(
       } else {
         authError.value = "Invalid username or password";
         return false;
+      }
+    };
+    const addExpense = (expense) => {
+      expenses.value.push(expense);
+      console.log(expenses.value.length);
+    };
+
+    const deleteExpense = (id) => {
+      expenses.value = expenses.value.filter((e) => e.id !== id);
+    };
+
+    const updateExpense = (updatedExpense) => {
+      const index = expenses.value.findIndex((e) => e.id === updatedExpense.id);
+      if (index !== -1) {
+        expenses.value[index] = updatedExpense;
       }
     };
 
@@ -65,6 +81,7 @@ export const useStore = defineStore(
       trips,
       repairHistories,
       carCount,
+      expenses,
       login,
       logout,
       addCar,
@@ -75,6 +92,9 @@ export const useStore = defineStore(
       addRepairHistories,
       deleteDriver,
       findUser,
+      deleteExpense,
+      addExpense,
+      updateExpense,
     };
   },
   { persist: true }

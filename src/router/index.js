@@ -8,6 +8,11 @@ const routes = [
     meta: { guest: true },
   },
   {
+    path: "/date",
+    component: () => import("../components/datepicker/Datepicker.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/auth/login",
     component: () => import("../components/Login.vue"),
     meta: { guest: true },
@@ -57,6 +62,11 @@ const routes = [
     component: () => import("../components/Fuel.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("../components/NotFound.vue"),
+    meta: { guest: true },
+  },
 ];
 
 const router = createRouter({
@@ -65,14 +75,32 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const store = useStore();
+  try {
+    const store = useStore();
+    if (!store) {
+      console.error("Store is not initialized!");
+      next("/auth/login");
+      return;
+    }
 
-  if (to.meta.requiresAuth && !store.isLogedIn) {
+    if (to.meta.requiresAuth && !store.isLogedIn) {
+      if (to.path !== "/auth/login") {
+        next("/auth/login");
+      } else {
+        next();
+      }
+    } else if (to.meta.guest && store.isLogedIn) {
+      if (to.path !== "/") {
+        next("/");
+      } else {
+        next();
+      }
+    } else {
+      next();
+    }
+  } catch (error) {
+    console.error("Error in navigation guard:", error);
     next("/auth/login");
-  } else if (to.meta.guest && store.isLogedIn) {
-    next("/");
-  } else {
-    next();
   }
 });
 

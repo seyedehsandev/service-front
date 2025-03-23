@@ -1,6 +1,6 @@
 <template>
   <div dir="rtl" class="font-vazir">
-      <div class="w-screen min-h-screen flex rounded-md bg-gray-50"> 
+      <div class="w-screen min-h-screen flex rounded-md bg-gray-50">
           <div class="w-full px-4 md:px-8"> 
             <!-- header  -->
               <header class="border-b border-gray-200">

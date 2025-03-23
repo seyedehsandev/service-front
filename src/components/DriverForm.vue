@@ -2,10 +2,11 @@
   <div dir="rtl" class="font-vazir">
       <div class="w-screen min-h-screen flex rounded-md bg-gray-50"> 
           <div class="w-full px-4 md:px-8"> 
+            <!-- header  -->
               <header class="border-b border-gray-200">
                   <h1 class="text-2xl md:text-3xl py-4 px-2 font-bold text-gray-800">لیست راننده‌ها</h1>
               </header>
-              
+              <!-- main div  -->
               <main class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between px-2 py-6">
                   <div class="order-2 md:order-1">
                       <button 
@@ -79,7 +80,7 @@
                   style="width: 95%; max-width: 640px;"
               >
               <button 
-    @click="isFormOpen = false" 
+    @click="isFormOpen=false" 
     class="absolute top-4 left-4 bg-red-100 hover:bg-red-200 p-1.5 rounded-full transition-colors"
   >
     <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -90,7 +91,6 @@
   <h2 class="font-bold text-2xl text-gray-800 mb-4">مشخصات خودرو</h2>
 
   <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-    <!-- رنگ -->
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-gray-700">نام</label>
       <input 
@@ -100,8 +100,6 @@
         required
       >
     </div>
-
-    <!-- مدل -->
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-gray-700">نام خانوداگی <span class="text-red-500">*</span></label>
       <input
@@ -121,8 +119,6 @@
         class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       >
     </div>
-
-   
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-gray-700">شماره تلفن</label>

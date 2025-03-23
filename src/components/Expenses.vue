@@ -127,12 +127,14 @@
         </div>
       </div>
     </div>
+
   </template>
   
   <script setup>
   import { ref, computed } from 'vue';
   import { useStore } from '../store/useStore';
   import { storeToRefs } from 'pinia';
+
   
   const store = useStore();
   const { expenses, cars } = storeToRefs(store);

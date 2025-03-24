@@ -112,12 +112,7 @@
 
     <div class="flex flex-col gap-2">
       <label class="text-sm font-medium text-gray-700">انقضا گواهینامه <span class="text-red-500">*</span></label>
-      <input
-        type="date"
-        v-model="driverData.licenceExpireTime"
-        required
-        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-      >
+      <Datepicker v-model="driverData.expirationDate" />
     </div>
 
     <div class="flex flex-col gap-2">
@@ -160,6 +155,7 @@
 import { reactive, ref, computed } from 'vue';
 import { useStore } from '../store/useStore';
 import { storeToRefs } from 'pinia';
+import Datepicker from './datepicker/Datepicker.vue';
 
 const isFormOpen = ref(false);
 const editingIndex = ref(null);

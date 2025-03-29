@@ -4,57 +4,79 @@
       <div class="w-full px-4 md:px-8">
         <!-- هدر -->
         <header class="border-b border-gray-200">
-          <h1 class="text-2xl md:text-3xl py-4 px-2 font-bold text-gray-800">لیست سفرها</h1>
+          <h1 class="text-2xl md:text-3xl py-4 px-2 font-bold text-gray-800">
+            لیست سفرها
+          </h1>
         </header>
 
         <!-- فیلترها و آمار -->
-        <main class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between px-2 py-6">
+        <main
+          class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between px-2 py-6"
+        >
           <div class="order-2 md:order-1 flex gap-4">
-            <button 
+            <button
               @click="isFormOpen = true"
               class="bg-gradient-to-r from-green-500 to-green-600 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-white font-medium flex items-center gap-2"
             >
               ایجاد سفر جدید
             </button>
-            
+
             <div class="relative">
-              <select 
+              <select
                 v-model="selectedCarFilter"
                 class="pl-4 pr-10 py-3 rounded-xl border-2 border-gray-200 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all cursor-pointer appearance-none"
               >
                 <option value="">همه خودروها</option>
-                <option 
-                  v-for="car in cars" 
-                  :key="car.plate" 
-                  :value="car.plate"
-                >
+                <option v-for="car in cars" :key="car.plate" :value="car.plate">
                   {{ car.brand }} {{ car.model }} ({{ car.plate }})
                 </option>
               </select>
-              <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              <div
+                class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+              >
+                <svg
+                  class="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div class="order-1 md:order-2 bg-white px-5 py-3 rounded-lg shadow-sm border border-gray-100">
+          <div
+            class="order-1 md:order-2 bg-white px-5 py-3 rounded-lg shadow-sm border border-gray-100"
+          >
             <span class="text-gray-600">
-              تعداد سفرها: 
-              <span class="font-bold text-blue-600">{{ filteredTrips.length }}</span>
+              تعداد سفرها:
+              <span class="font-bold text-blue-600">{{
+                filteredTrips.length
+              }}</span>
             </span>
           </div>
         </main>
 
         <!-- جدول سفرها -->
-        <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mb-8 bg-white">
+        <div
+          class="rounded-xl overflow-hidden border border-gray-200 shadow-sm mb-8 bg-white"
+        >
           <table class="w-full">
             <thead class="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th class="px-4 py-3 text-right text-sm font-medium text-gray-500 uppercase tracking-wider">تاریخ</th>
-                <th 
-                  v-for="(header, index) in headers" 
+                <th
+                  class="px-4 py-3 text-right text-sm font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  تاریخ
+                </th>
+                <th
+                  v-for="(header, index) in headers"
                   :key="index"
                   class="px-4 py-3 text-right text-sm font-medium text-gray-500 uppercase tracking-wider"
                 >
@@ -63,29 +85,57 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              <tr 
-                v-for="(item, index) in filteredTrips" 
-                :key="index" 
+              <tr
+                v-for="(item, index) in filteredTrips"
+                :key="index"
                 class="hover:bg-gray-50 transition-colors duration-150"
               >
-                <td class="px-4 py-3 text-sm text-gray-700">{{ convertToJalali(item.date) }}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.driver }}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ convertToJalali(item.date) }}
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.driver }}
+                </td>
                 <td class="px-4 py-3 text-sm text-gray-700">{{ item.car }}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.origin }}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.destination }}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.distance }} کیلومتر</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.fuel.type }}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.fuel.consumption }} لیتر</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.fuel.cost }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.mealPrice }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.parkingCost }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.tollCost }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.fineCost }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.otherCosts }} تومان</td>
-                <td class="px-4 py-3 text-sm text-gray-700">{{ item.description }}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.origin }}
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.destination }}
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.distance }} کیلومتر
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.fuel.type }}
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.fuel.consumption }} لیتر
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.fuel.cost }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.mealPrice }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.parkingCost }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.tollCost }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.fineCost }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.otherCosts }} تومان
+                </td>
+                <td class="px-4 py-3 text-sm text-gray-700">
+                  {{ item.description }}
+                </td>
 
                 <td class="px-4 py-3">
-                  <button 
+                  <button
                     @click="editData(item, index)"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm"
                   >
@@ -94,7 +144,7 @@
                 </td>
 
                 <td class="px-4 py-3">
-                  <button 
+                  <button
                     @click="DeleteItem(item, index)"
                     class="bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm flex items-center gap-1"
                   >
@@ -107,13 +157,15 @@
         </div>
 
         <!-- فرم ایجاد/ویرایش سفر -->
-        <form 
+        <form
           v-if="isFormOpen"
           class="fixed inset-0 bg-white z-50 flex flex-col overflow-hidden backdrop-blur-lg"
         >
-          <div class="border-b border-gray-200 p-4 flex items-center justify-between bg-white shadow-sm">
+          <div
+            class="border-b border-gray-200 p-4 flex items-center justify-between bg-white shadow-sm"
+          >
             <h2 class="text-xl font-bold text-gray-800">مشخصات سفر</h2>
-            <button 
+            <button
               @click="isFormOpen = false"
               class="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-300"
             >
@@ -122,79 +174,52 @@
           </div>
 
           <div class="flex-1 overflow-auto p-6">
-            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
               <!-- بخش تاریخ شمسی -->
               <div class="space-y-4">
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">تاریخ سفر</label>
-                  <div class="flex gap-2">
-                    <div class="flex-1 relative">
-                      <select 
-                        v-model="tripData.date.year"
-                        class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all appearance-none"
-                      >
-                        <option 
-                          v-for="year in Array.from({length: 10}, (_, i) => currentJalali.year - 5 + i)"
-                          :value="year"
-                          :key="year"
-                        >
-                          {{ year }}
-                        </option>
-                      </select>
-                    </div>
-                    
-                    <div class="flex-1 relative">
-                      <select 
-                        v-model="tripData.date.month"
-                        class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all appearance-none"
-                      >
-                        <option 
-                          v-for="month in 12"
-                          :value="month"
-                          :key="month"
-                        >
-                          {{ month.toString().padStart(2, '۰') }}
-                        </option>
-                      </select>
-                    </div>
-                    
-                    <div class="flex-1 relative">
-                      <select 
-                        v-model="tripData.date.day"
-                        class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all appearance-none"
-                      >
-                        <option 
-                          v-for="day in daysInMonth"
-                          :value="day"
-                          :key="day"
-                        >
-                          {{ day.toString().padStart(2, '۰') }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
+                  <label class="text-sm font-medium text-gray-700"
+                    >تاریخ سفر</label
+                  >
+                  <DatePicker v-model="tripData.date"></DatePicker>
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">راننده</label>
+                  <label class="text-sm font-medium text-gray-700"
+                    >راننده</label
+                  >
                   <div class="relative">
-                    <select 
+                    <select
                       v-model="tripData.driver"
                       @change="setAssignedCar"
                       class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all appearance-none pr-10"
                     >
                       <option value="">انتخاب راننده</option>
-                      <option 
-                        v-for="driver in drivers" 
-                        :key="driver.id" 
+                      <option
+                        v-for="driver in drivers"
+                        :key="driver.id"
                         :value="driver.id"
                       >
                         {{ driver.name }} {{ driver.lastName }}
                       </option>
                     </select>
-                    <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    <div
+                      class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                    >
+                      <svg
+                        class="w-5 h-5 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </div>
                   </div>
@@ -202,125 +227,155 @@
 
                 <div class="flex flex-col gap-2">
                   <label class="text-sm font-medium text-gray-700">مبدا</label>
-                  <input 
-                    type="text" 
-                    v-model="tripData.origin" 
+                  <input
+                    type="text"
+                    v-model="tripData.origin"
                     class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                  >
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
                   <label class="text-sm font-medium text-gray-700">مقصد</label>
-                  <input 
-                    type="text" 
-                    v-model="tripData.destination" 
+                  <input
+                    type="text"
+                    v-model="tripData.destination"
                     class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                  >
+                  />
                 </div>
               </div>
 
               <!-- بخش هزینه‌ها -->
               <div class="space-y-4">
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">مسافت (کیلومتر)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.distance" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >مسافت (کیلومتر)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.distance"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">نوع سوخت</label>
+                  <label class="text-sm font-medium text-gray-700"
+                    >نوع سوخت</label
+                  >
                   <div class="relative">
-                    <select 
-                      v-model="tripData.fuel.type" 
+                    <select
+                      v-model="tripData.fuel.type"
                       class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all appearance-none pr-10"
                     >
                       <option value="بنزین">بنزین</option>
                       <option value="دیزل">دیزل</option>
                     </select>
-                    <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    <div
+                      class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                    >
+                      <svg
+                        class="w-5 h-5 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </div>
                   </div>
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">سوخت مصرفی (لیتر)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.fuel.consumption" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >سوخت مصرفی (لیتر)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.fuel.consumption"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">هزینه سوخت (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.fuel.cost" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >هزینه سوخت (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.fuel.cost"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
               </div>
 
-              <!-- بخش سایر هزینه‌ها -->
               <div class="space-y-4">
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">هزینه غذا (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.mealPrice" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >هزینه غذا (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.mealPrice"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">هزینه پارکینگ (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.parkingCost" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >هزینه پارکینگ (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.parkingCost"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">هزینه عوارض (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.tollCost" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >هزینه عوارض (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.tollCost"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">هزینه جریمه (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.fineCost" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >هزینه جریمه (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.fineCost"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
               </div>
 
-              <!-- توضیحات و سایر هزینه‌ها -->
               <div class="md:col-span-2 lg:col-span-3">
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">سایر هزینه‌ها (تومان)</label>
-                  <input 
-                    type="number" 
-                    v-model="tripData.otherCosts" 
-                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  <label class="text-sm font-medium text-gray-700"
+                    >سایر هزینه‌ها (تومان)</label
                   >
+                  <input
+                    type="number"
+                    v-model="tripData.otherCosts"
+                    class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                  />
                 </div>
 
                 <div class="flex flex-col gap-2">
-                  <label class="text-sm font-medium text-gray-700">توضیحات</label>
-                  <textarea 
-                    v-model="tripData.description" 
+                  <label class="text-sm font-medium text-gray-700"
+                    >توضیحات</label
+                  >
+                  <textarea
+                    v-model="tripData.description"
                     class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all h-32"
                   ></textarea>
                 </div>
@@ -342,55 +397,39 @@
     </div>
   </div>
 </template>
-
-
-
-
 <script setup>
 import { reactive, ref, computed } from 'vue';
 import { useStore } from '../store/useStore';
 import { storeToRefs } from 'pinia';
 import { toJalaali, jalaaliToDateObject } from 'jalaali-js';
+import DatePicker from 'vue3-persian-datetime-picker';
 
-const headers = ['راننده', 'خودرو', 'مبدا', 'مقصد', 'مسافت', 'نوع سوخت', 'سوخت مصرفی', 'هزینه سوخت', 'هزینه غذا', 'هزینه پارکینگ', 'هزینه عوارض', 'هزینه جریمه', 'سایر هزینه‌ها', 'توضیحات', 'ویرایش', 'حذف'];
+const headers = [
+  'راننده',
+  'خودرو',
+  'مبدا',
+  'مقصد',
+  'مسافت',
+  'نوع سوخت',
+  'سوخت مصرفی',
+  'هزینه سوخت',
+  'هزینه غذا',
+  'هزینه پارکینگ',
+  'هزینه عوارض',
+  'هزینه جریمه',
+  'سایر هزینه‌ها',
+  'توضیحات',
+  'ویرایش',
+  'حذف',
+];
 
 const { trips, cars, drivers } = storeToRefs(useStore());
 const store = useStore();
 
-// حالت‌های فرم
 const isFormOpen = ref(false);
 const editingIndex = ref(null);
 const selectedCarFilter = ref('');
 
-// توابع تاریخ شمسی
-const getCurrentJalaliDate = () => {
-  const today = new Date();
-  const { jy, jm, jd } = toJalaali(today);
-  return { year: jy, month: jm, day: jd };
-};
-
-const currentJalali = getCurrentJalaliDate();
-
-// اعتبارسنجی تاریخ
-const validateJalaliDate = (year, month, day) => {
-  const monthDays = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
-  if (month < 1 || month > 12) return false;
-  if (day < 1 || day > monthDays[month - 1]) return false;
-  return true;
-};
-
-// تبدیل تاریخ میلادی به شمسی
-const convertToJalali = (gregorianDate) => {
-  try {
-    const date = new Date(gregorianDate);
-    const { jy, jm, jd } = toJalaali(date);
-    return `${jy}/${jm.toString().padStart(2, '0')}/${jd.toString().padStart(2, '0')}`;
-  } catch {
-    return 'نامعتبر';
-  }
-};
-
-// داده‌های فرم
 const tripData = reactive({
   driver: '',
   car: '',
@@ -400,7 +439,7 @@ const tripData = reactive({
   fuel: {
     type: 'بنزین',
     consumption: 0,
-    cost: 0
+    cost: 0,
   },
   mealPrice: 0,
   parkingCost: 0,
@@ -408,11 +447,7 @@ const tripData = reactive({
   fineCost: 0,
   otherCosts: 0,
   description: '',
-  date: {
-    year: currentJalali.year,
-    month: currentJalali.month,
-    day: currentJalali.day
-  }
+  date: '',
 });
 
 // محاسبه روزهای ماه
@@ -423,14 +458,14 @@ const daysInMonth = computed(() => {
 
 // فیلتر سفرها
 const filteredTrips = computed(() => {
-  return selectedCarFilter.value 
-    ? trips.value.filter(trip => trip.car === selectedCarFilter.value)
+  return selectedCarFilter.value
+    ? trips.value.filter((trip) => trip.car === selectedCarFilter.value)
     : trips.value;
 });
 
 // پیدا کردن خودروی مرتبط
 const selectedCar = computed(() => {
-  return cars.value.find(car => car.driverId === tripData.driver);
+  return cars.value.find((car) => car.driverId === tripData.driver);
 });
 
 // تنظیم خودروی مرتبط
@@ -449,7 +484,7 @@ const resetForm = () => {
     fuel: {
       type: 'بنزین',
       consumption: 0,
-      cost: 0
+      cost: 0,
     },
     mealPrice: 0,
     parkingCost: 0,
@@ -460,33 +495,33 @@ const resetForm = () => {
     date: {
       year: currentJalali.year,
       month: currentJalali.month,
-      day: currentJalali.day
-    }
+      day: currentJalali.day,
+    },
   });
   editingIndex.value = null;
 };
 
 // ثبت/آپدیت سفر
 const submitting = () => {
-  if (!validateJalaliDate(tripData.date.year, tripData.date.month, tripData.date.day)) {
+  if (
+    !validateJalaliDate(
+      tripData.date.year,
+      tripData.date.month,
+      tripData.date.day
+    )
+  ) {
     alert('تاریخ وارد شده معتبر نیست');
     return;
   }
 
   try {
-    const gregorianDate = jalaaliToDateObject(
-      tripData.date.year,
-      tripData.date.month,
-      tripData.date.day
-    ).toISOString().split('T')[0];
+    const driver = drivers.value.find((d) => d.id === tripData.driver);
 
-    const driver = drivers.value.find(d => d.id === tripData.driver);
-    
     const trip = {
       ...tripData,
       driver: driver ? `${driver.name} ${driver.lastName}` : 'نامشخص',
       date: gregorianDate,
-      lastEdit: Date.now()
+      lastEdit: Date.now(),
     };
 
     if (editingIndex.value !== null) {
@@ -494,7 +529,7 @@ const submitting = () => {
     } else {
       store.addTrip(trip);
     }
-    
+
     resetForm();
     isFormOpen.value = false;
   } catch (error) {
@@ -503,9 +538,10 @@ const submitting = () => {
   }
 };
 
-// حذف سفر
 const DeleteItem = (item, index) => {
-  if (confirm(`آیا از حذف سفر ${item.origin} به ${item.destination} مطمئن هستید؟`)) {
+  if (
+    confirm(`آیا از حذف سفر ${item.origin} به ${item.destination} مطمئن هستید؟`)
+  ) {
     store.deleteTrip(index);
   }
 };
@@ -515,24 +551,24 @@ const populateForm = (data) => {
   try {
     const date = new Date(data.date);
     const { jy, jm, jd } = toJalaali(date);
-    
-    const driver = drivers.value.find(d => 
-      `${d.name} ${d.lastName}` === data.driver
+
+    const driver = drivers.value.find(
+      (d) => `${d.name} ${d.lastName}` === data.driver
     );
-    
+
     Object.assign(tripData, {
       ...data,
       driver: driver?.id || '',
       date: {
         year: jy,
         month: jm,
-        day: jd
+        day: jd,
       },
       fuel: data.fuel || {
         type: 'بنزین',
         consumption: 0,
-        cost: 0
-      }
+        cost: 0,
+      },
     });
   } catch (error) {
     console.error('خطا در بازیابی اطلاعات:', error);

@@ -35,11 +35,7 @@
   
               <div class="flex flex-col gap-2">
                 <label class="text-sm font-medium text-gray-700">تاریخ <span class="text-red-500">*</span></label>
-                <input
-                  type="date"
-                  v-model="newExpense.date"
-                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
-                >
+                <DatePicker v-model="newExpense.date"></DatePicker>
               </div>
   
               <div class="flex flex-col gap-2">
@@ -127,12 +123,15 @@
         </div>
       </div>
     </div>
+
   </template>
   
   <script setup>
   import { ref, computed } from 'vue';
   import { useStore } from '../store/useStore';
   import { storeToRefs } from 'pinia';
+  import DatePicker from 'vue3-persian-datetime-picker';
+
   
   const store = useStore();
   const { expenses, cars } = storeToRefs(store);
@@ -151,7 +150,7 @@
   const newExpense = ref({
     type: 'insurance',
     amount: 0,
-    date: new Date().toISOString().split('T')[0],
+    date: "",
     carPlate: '',
     description: ''
   });

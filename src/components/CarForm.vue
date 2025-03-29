@@ -173,11 +173,7 @@
 
             <div class="flex flex-col gap-2">
               <label class="text-sm font-medium text-gray-700">انقضاء بیمه</label>
-              <input
-                type="date"
-                v-model="carData.expireInsurance"
-                class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
-              >
+                <DatePicker v-model="carData.expireInsurance"></DatePicker>
             </div>
           </div>
 
@@ -197,6 +193,8 @@
 import { reactive, ref, computed } from 'vue';
 import { useStore } from '../store/useStore';
 import { storeToRefs } from 'pinia';
+import DatePicker from 'vue3-persian-datetime-picker';
+
 
 const isFormOpen = ref(false);
 const editingIndex = ref(null);

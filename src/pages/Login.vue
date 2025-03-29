@@ -1,10 +1,14 @@
 <template>
-  <div class="w-full min-h-screen login-container">
+  <div
+    class="w-full min-h-screen bg-[url('/1.webp')] bg-cover bg-center bg-no-repeat bg-blend-multiply bg-[rgba(164,255,205,0.416)]"
+  >
     <div class="flex justify-center items-center h-screen">
       <form
         class="flex flex-col justify-center items-center bg-white/90 backdrop-blur-sm w-[350px] md:w-[450px] py-12 md:py-14 gap-y-6 rounded-xl shadow-2xl"
       >
-        <span class="text-teal-800 font-bold text-3xl md:text-4xl pb-4">Login</span>
+        <span class="text-teal-800 font-bold text-3xl md:text-4xl pb-4"
+          >Login</span
+        >
 
         <div class="w-full px-6">
           <input
@@ -51,25 +55,25 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "../store/useStore";
-import useVuelidate from "@vuelidate/core";
-import { minLength, required, email } from "@vuelidate/validators";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
+import { reactive, ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from '../store/useStore';
+import useVuelidate from '@vuelidate/core';
+import { minLength, required, email } from '@vuelidate/validators';
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
 const store = useStore();
 const router = useRouter();
 
 const user = reactive({
-  username: "",
-  password: "",
+  username: '',
+  password: '',
   remembered: false,
 });
 
-const isLoading = ref(false); 
-const notyf = new Notyf(); 
+const isLoading = ref(false);
+const notyf = new Notyf();
 
 const rules = {
   username: { required, email },
@@ -85,52 +89,40 @@ const v$ = useVuelidate(rules, user);
 
 async function login() {
   if (user.password && user.username) {
-    isLoading.value = true; 
-    v$.value.$touch(); 
+    isLoading.value = true;
+    v$.value.$touch();
 
     if (!v$.value.$invalid) {
       const isAuth = await store.login(user.username, user.password);
 
       if (isAuth) {
-        notyf.success("You have been successfully logged in!");
-        router.push("/dashboard");
+        notyf.success('You have been successfully logged in!');
+        router.push('/dashboard');
       } else {
-        notyf.error("Incorrect username or password");
+        notyf.error('Incorrect username or password');
       }
     } else {
-      notyf.error("Please fix validation errors");
+      notyf.error('Please fix validation errors');
     }
 
-    isLoading.value = false; 
+    isLoading.value = false;
   } else {
-    notyf.error("Please fill out the form");
+    notyf.error('Please fill out the form');
   }
 }
 
-
 const handleKeyPress = (event) => {
-  if (event.key === "Enter" && !isLoading.value) {
+  if (event.key === 'Enter' && !isLoading.value) {
     event.preventDefault();
     login();
   }
 };
 
 onMounted(() => {
-  window.addEventListener("keypress", handleKeyPress);
+  window.addEventListener('keypress', handleKeyPress);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keypress", handleKeyPress);
+  window.removeEventListener('keypress', handleKeyPress);
 });
 </script>
-
-<style scoped>
-.login-container {
-  background-image: url("/1.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
-  background-color: rgba(164, 255, 205, 0.416);
-}
-</style>

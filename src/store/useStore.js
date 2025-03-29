@@ -1,16 +1,16 @@
-import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 
 export const useStore = defineStore(
-  "store",
+  'store',
   () => {
     // State
-    const isLogedIn = ref(false);
+    const isLoggedIn = ref(false);
     const authUser = ref(null);
     const authError = ref(null);
     const cars = ref([]);
     const users = ref([
-      { id: 1, username: "ehsan@gmail.com", password: "0147AAaa#" },
+      { id: 1, username: 'ehsan@gmail.com', password: '0147AAaa#' },
     ]);
     const drivers = ref([]);
     const reports = ref([]);
@@ -25,12 +25,12 @@ export const useStore = defineStore(
     const login = (username, password) => {
       const user = findUser(username, password);
       if (user) {
-        isLogedIn.value = true;
+        isLoggedIn.value = true;
         authUser.value = user;
         authError.value = null;
         return true;
       } else {
-        authError.value = "Invalid username or password";
+        authError.value = 'Invalid username or password';
         return false;
       }
     };
@@ -51,7 +51,7 @@ export const useStore = defineStore(
     };
 
     const logout = () => {
-      isLogedIn.value = false;
+      isLoggedIn.value = false;
       authUser.value = null;
       authError.value = null;
     };
@@ -71,7 +71,7 @@ export const useStore = defineStore(
       );
 
     return {
-      isLogedIn,
+      isLoggedIn,
       authUser,
       authError,
       cars,

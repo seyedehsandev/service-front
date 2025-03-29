@@ -76,13 +76,13 @@ router.beforeEach((to, from, next) => {
       return;
     }
 
-    if (to.meta.requiresAuth && !store.isLogedIn) {
+    if (to.meta.requiresAuth && !store.isLoggedIn) {
       if (to.path !== '/auth/login') {
         next('/auth/login');
       } else {
         next();
       }
-    } else if (to.meta.guest && store.isLogedIn) {
+    } else if (to.meta.guest && store.isLoggedIn) {
       if (to.path !== '/') {
         next('/');
       } else {

@@ -8,7 +8,7 @@ const isLoged = computed(() => store.isLoggedIn);
 
 <template>
   <div>
-    <MenuBar v-if="isLogged" />
+    <MenuBar v-if="isLoged" />
     <router-view />
   </div>
 </template>

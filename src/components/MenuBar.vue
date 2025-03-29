@@ -96,6 +96,7 @@
   
   const menuItems = [
   { name: "داشبورد", to: "/dashboard" },
+  { name: "تاریخ", to: "/date" },
   { name: "گزارشات", to: "/reports" },
   { name: "خودرو ها", to: "/cars" },
   { name: "راننده ها", to: "/drivers" },

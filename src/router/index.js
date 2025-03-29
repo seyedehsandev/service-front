@@ -8,11 +8,6 @@ const routes = [
     meta: { guest: true },
   },
   {
-    path: "/date",
-    component: () => import("../components/datepicker/Datepicker.vue"),
-    meta: { requiresAuth: true },
-  },
-  {
     path: "/auth/login",
     component: () => import("../components/Login.vue"),
     meta: { guest: true },

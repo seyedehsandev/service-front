@@ -1,65 +1,63 @@
-import { createWebHistory, createRouter } from "vue-router";
-import { useStore } from "./../store/useStore";
+import { createWebHistory, createRouter } from 'vue-router';
+import { useStore } from './../store/useStore';
 
 const routes = [
   {
-    path: "/",
-    component: () => import("../components/Home.vue"),
-    meta: { guest: true },
+    path: '/',
+    component: () => import('../pages/Home.vue'),
   },
   {
-    path: "/auth/login",
-    component: () => import("../components/Login.vue"),
-    meta: { guest: true },
+    path: '/auth/login',
+    component: () => import('../pages/Login.vue'),
   },
   {
-    path: "/dashboard",
-    component: () => import("../components/Dashboard.vue"),
+    path: '/dashboard',
+    component: () => import('../pages/Dashboard.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/reports",
-    component: () => import("../components/Report.vue"),
+    path: '/reports',
+    component: () => import('../pages/Report.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/insurance-check",
-    component: () => import("../components/InsuranceCheck.vue"),
+    path: '/insurance-check',
+    component: () => import('../pages/InsuranceCheck.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/expenses",
-    component: () => import("../components/Expenses.vue"),
+    path: '/expenses',
+    component: () => import('../pages/Expenses.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/cars",
-    component: () => import("../components/CarForm.vue"),
+    path: '/cars',
+    component: () => import('../pages/CarForm.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/drivers",
-    component: () => import("../components/DriverForm.vue"),
+    path: '/drivers',
+    component: () => import('../pages/DriverForm.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/repair-history",
-    component: () => import("../components/RepairHistory.vue"),
+    path: '/repair-history',
+    component: () => import('../pages/RepairHistory.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/trip-list",
-    component: () => import("../components/TripList.vue"),
+    path: '/trip-list',
+    component: () => import('../pages/TripList.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/fuel",
-    component: () => import("../components/Fuel.vue"),
+    path: '/fuel',
+    component: () => import('../pages/Fuel.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: "/:pathMatch(.*)*",
-    component: () => import("../components/NotFound.vue"),
+    path: '/:pathMatch(.*)*',
+    component: () => import('../pages/NotFound.vue'),
     meta: { guest: true },
   },
 ];
@@ -73,20 +71,20 @@ router.beforeEach((to, from, next) => {
   try {
     const store = useStore();
     if (!store) {
-      console.error("Store is not initialized!");
-      next("/auth/login");
+      console.error('Store is not initialized!');
+      next('/auth/login');
       return;
     }
 
     if (to.meta.requiresAuth && !store.isLogedIn) {
-      if (to.path !== "/auth/login") {
-        next("/auth/login");
+      if (to.path !== '/auth/login') {
+        next('/auth/login');
       } else {
         next();
       }
     } else if (to.meta.guest && store.isLogedIn) {
-      if (to.path !== "/") {
-        next("/");
+      if (to.path !== '/') {
+        next('/');
       } else {
         next();
       }
@@ -94,8 +92,8 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } catch (error) {
-    console.error("Error in navigation guard:", error);
-    next("/auth/login");
+    console.error('Error in navigation guard:', error);
+    next('/auth/login');
   }
 });
 

@@ -8,16 +8,14 @@
             <td>تعمیر گزارش شده</td>
             <td>جریمه گزارش شده</td>
             <td>وضعیت گواهینامه</td>
-            
             <td>مجموع هزینه</td>
         </th>
-        <tbody>
-            
-        </tbody>
     </table>
 </template>
 <script setup>
 import {ref} from 'vue';
+
+
 import {useStore} from 'vuex';
 
 const store = useStore();
@@ -43,6 +41,10 @@ const findDriverAllCost = (driverCode) => {
     const findDriverPallet= (driverCode) => {
         const driver = drivers.value.find(driver => driver.code === driverCode);
         return driver.pallet;
+
+
+
+
     }
 
 }

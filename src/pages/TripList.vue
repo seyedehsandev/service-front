@@ -400,6 +400,8 @@
 <script setup>
 import { reactive, ref, computed } from 'vue';
 import { useStore } from '../store/useStore';
+import { useCarStore } from './../store/cars.js';
+
 import { storeToRefs } from 'pinia';
 import { toJalaali, jalaaliToDateObject } from 'jalaali-js';
 import DatePicker from 'vue3-persian-datetime-picker';
@@ -423,9 +425,9 @@ const headers = [
   'حذف',
 ];
 
-const { trips, cars, drivers } = storeToRefs(useStore());
+const { trips, drivers } = storeToRefs(useStore());
 const store = useStore();
-
+const { cars } = useCarStore();
 const isFormOpen = ref(false);
 const editingIndex = ref(null);
 const selectedCarFilter = ref('');

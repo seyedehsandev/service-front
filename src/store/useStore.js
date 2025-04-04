@@ -5,35 +5,14 @@ export const useStore = defineStore(
   'store',
   () => {
     // State
-    const isLoggedIn = ref(false);
-    const authUser = ref(null);
-    const authError = ref(null);
-    const cars = ref([]);
-    const users = ref([
-      { id: 1, username: 'ehsan@gmail.com', password: '0147AAaa#' },
-    ]);
     const drivers = ref([]);
     const reports = ref([]);
     const trips = ref([]);
     const expenses = ref([]);
     const repairHistories = ref([]);
 
-    // Getters
-    const carCount = computed(() => cars.value.length);
-
     // Actions
-    const login = (username, password) => {
-      const user = findUser(username, password);
-      if (user) {
-        isLoggedIn.value = true;
-        authUser.value = user;
-        authError.value = null;
-        return true;
-      } else {
-        authError.value = 'Invalid username or password';
-        return false;
-      }
-    };
+
     const addExpense = (expense) => {
       expenses.value.push(expense);
       console.log(expenses.value.length);
@@ -50,13 +29,6 @@ export const useStore = defineStore(
       }
     };
 
-    const logout = () => {
-      isLoggedIn.value = false;
-      authUser.value = null;
-      authError.value = null;
-    };
-
-    const addCar = (newCar) => cars.value.push(newCar);
     const addTrip = (newTrip) => trips.value.push(newTrip);
     const updateTrip = (index, newTrip) =>
       trips.value.splice(index, 1, newTrip);
@@ -65,33 +37,19 @@ export const useStore = defineStore(
     const addRepairHistories = (newRepair) =>
       repairHistories.value.push(newRepair);
     const deleteDriver = (index) => drivers.value.splice(index, 1);
-    const findUser = (username, password) =>
-      users.value.find(
-        (user) => user.username === username && user.password === password
-      );
 
     return {
-      isLoggedIn,
-      authUser,
-      authError,
-      cars,
-      users,
       drivers,
       reports,
       trips,
       repairHistories,
-      carCount,
       expenses,
-      login,
-      logout,
-      addCar,
       addTrip,
       updateTrip,
       deleteTrip,
       addDriver,
       addRepairHistories,
       deleteDriver,
-      findUser,
       deleteExpense,
       addExpense,
       updateExpense,

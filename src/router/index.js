@@ -79,11 +79,19 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
 
   const requiresAuth = to.meta.requiresAuth;
   const guestOnly = to.meta.guestOnly;
+
+  if (!authStore.isLoggedIn && localStorage.getItem('auth')) {
+    console.log(
+      'Guard: Auth state not loaded, attempting to restore from storage...'
+    );
+    authStore.checkAuth();
+  }
+
   const isLoggedIn = authStore.isLoggedIn;
 
   console.log(

@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 export const useStore = defineStore(
   'store',
   () => {
     // State
-    const drivers = ref([]);
     const reports = ref([]);
     const trips = ref([]);
     const expenses = ref([]);
@@ -33,13 +32,10 @@ export const useStore = defineStore(
     const updateTrip = (index, newTrip) =>
       trips.value.splice(index, 1, newTrip);
     const deleteTrip = (index) => trips.value.splice(index, 1);
-    const addDriver = (newDriver) => drivers.value.push(newDriver);
     const addRepairHistories = (newRepair) =>
       repairHistories.value.push(newRepair);
-    const deleteDriver = (index) => drivers.value.splice(index, 1);
 
     return {
-      drivers,
       reports,
       trips,
       repairHistories,
@@ -47,9 +43,7 @@ export const useStore = defineStore(
       addTrip,
       updateTrip,
       deleteTrip,
-      addDriver,
       addRepairHistories,
-      deleteDriver,
       deleteExpense,
       addExpense,
       updateExpense,

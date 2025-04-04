@@ -67,8 +67,8 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
               <tr
-                v-for="(item, index) in cars"
-                :key="index"
+                v-for="(item, id) in cars"
+                :key="id"
                 class="hover:bg-gray-50 transition-colors duration-150"
               >
                 <td class="px-4 py-3 text-sm text-gray-700">
@@ -85,7 +85,7 @@
 
                 <td class="px-4 py-3">
                   <button
-                    @click="editData(item, index)"
+                    @click="editData(item)"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm"
                   >
                     ویرایش
@@ -94,7 +94,7 @@
 
                 <td class="px-4 py-3">
                   <button
-                    @click="DeleteItem(item, index)"
+                    @click="DeleteItem(item)"
                     class="bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm flex items-center gap-1"
                   >
                     <svg

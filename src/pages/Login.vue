@@ -62,13 +62,15 @@
 <script setup>
 import { reactive, ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from '../store/useStore';
+// import { useStore } from '../store/useStore';
+import { useAuthStore } from '../store/auth.js';
 import useVuelidate from '@vuelidate/core';
 import { minLength, required, email } from '@vuelidate/validators';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
-const store = useStore();
+// const store = useStore();
+const authStore = useAuthStore();
 const router = useRouter();
 
 const user = reactive({
@@ -105,7 +107,7 @@ async function login() {
     return;
   }
   try {
-    const isAuth = await store.login(user.username, user.password);
+    const isAuth = await authStore.login(user.username, user.password);
 
     if (isAuth) {
       notyf.success('You have been successfully logged in!');

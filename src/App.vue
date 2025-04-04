@@ -1,14 +1,15 @@
 <script setup>
 import MenuBar from './components/MenuBar.vue';
-import { useStore } from './store/useStore';
+import { useAuthStore } from './store/auth.js';
 import { computed } from 'vue';
 
-const store = useStore();
-const isLoged = computed(() => store.isLoggedIn);
+const authStore = useAuthStore();
+
+const isLogged = computed(() => authStore.isLoggedIn);
 </script>
 <template>
   <div>
-    <MenuBar v-if="isLoged" />
+    <MenuBar v-if="isLogged" />
     <router-view />
   </div>
 </template>

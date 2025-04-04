@@ -86,7 +86,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStore } from '../store/useStore';
+import { useStore } from '../store/repairs.js';
 import { useAuthStore } from '../store/auth.js';
 import { useRouter } from 'vue-router';
 

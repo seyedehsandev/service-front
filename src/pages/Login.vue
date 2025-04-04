@@ -82,7 +82,7 @@ const notyf = new Notyf({
 const user = reactive({
   username: '',
   password: '',
-  remembered: false, // Added back for template v-model
+  remembered: false,
 });
 
 const rules = {
@@ -108,21 +108,6 @@ const loginMutation = useMutation({
     notyf.error(error.message || 'Login failed. Please try again later.');
   },
 });
-
-console.log('--- Debugging loginMutation ---'); // Debug log
-console.log('loginMutation object:', loginMutation); // Debug log
-console.log('loginMutation.isLoading:', loginMutation?.isLoading); // Debug log
-try {
-  // Debug log
-  console.log(
-    'loginMutation.isLoading.value:',
-    loginMutation?.isLoading?.value
-  ); // Debug log
-} catch (e) {
-  // Debug log
-  console.error('Error accessing loginMutation.isLoading.value:', e); // Debug log
-} // Debug log
-console.log('--- End Debugging ---'); // Debug log
 
 async function handleLoginSubmit() {
   const isFormCorrect = await v$.value.$validate();

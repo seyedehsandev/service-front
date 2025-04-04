@@ -87,7 +87,7 @@
 
                 <td class="px-4 py-3">
                   <button
-                    @click="editData(item, index)"
+                    @click="editData(item)"
                     class="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm"
                   >
                     ویرایش
@@ -96,7 +96,7 @@
 
                 <td class="px-4 py-3">
                   <button
-                    @click="DeleteItem(item, index)"
+                    @click="DeleteItem(item)"
                     class="bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 rounded-md text-white hover:shadow-md transition-all duration-200 text-sm flex items-center gap-1"
                   >
                     <svg
@@ -214,18 +214,21 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue';
-import { useStore } from '../store/useStore';
+import { reactive, ref, computed, onMounted } from 'vue';
+import { useDriverStore } from '../store/drivers.js';
 import { storeToRefs } from 'pinia';
 import DatePicker from 'vue3-persian-datetime-picker';
 
 const isFormOpen = ref(false);
-const editingIndex = ref(null);
-const store = useStore();
-const { drivers } = storeToRefs(store);
-const { deleteDriver } = store;
-const driverCount = computed(() => store.drivers.length);
-const { addDriver } = useStore();
+const editingDriverId = ref(null);
+
+const driverStore = useDriverStore();
+
+const { drivers, driverCount } = storeToRefs(driverStore);
+
+const { addDriver, deleteDriverById, updateDriver, fetchDrivers } = driverStore;
+
+//------------------------------
 
 const driverData = reactive({
   name: '',
@@ -239,16 +242,20 @@ function resetForm() {
   Object.assign(driverData, {
     name: '',
     lastName: '',
-    licenceExpiteTime: '',
+    licenceExpireTime: '',
     phone: '',
     code: '',
   });
-  editingIndex.value = null;
+  editingDriverId.value = null;
 }
 
 function submitting() {
-  if (editingIndex.value !== null) {
-    store.drivers[editingIndex.value] = { ...driverData, lastEdit: new Date() };
+  if (editingDriverId.value !== null) {
+    updateDriver({
+      ...driverData,
+      id: editingDriverId.value,
+      lastEdit: new Date(),
+    });
   } else {
     addDriver({ ...driverData, lastEdit: new Date() });
   }
@@ -260,17 +267,25 @@ function populateForm(data) {
   Object.assign(driverData, data);
 }
 
-function editData(data, index) {
+function editData(driverItem) {
+  editingDriverId.value = driverItem.id;
+  populateForm(driverItem);
   isFormOpen.value = true;
-  editingIndex.value = index;
-  populateForm(data);
 }
 
-function DeleteItem(item, index) {
-  if (confirm(`آیا از حذف ${item.name} ${item.lastName} مطمئن هستید؟`)) {
-    deleteDriver(index);
+function DeleteItem(driverItem) {
+  if (
+    confirm(`آیا از حذف ${driverItem.name} ${driverItem.lastName} مطمئن هستید؟`)
+  ) {
+    deleteDriverById(driverItem.id);
   }
 }
+
+// onMounted(() => {
+//   if (drivers.value.length === 0) {
+//     fetchDrivers();
+//   }
+// });
 </script>
 
 <style scoped></style>

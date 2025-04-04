@@ -261,7 +261,7 @@
 <script setup>
 import { reactive, ref, computed, onMounted } from 'vue';
 import { useCarStore } from './../store/cars.js';
-import { useStore } from './../store/useStore.js';
+import { useDriverStore } from './../store/drivers.js';
 import { storeToRefs } from 'pinia';
 import DatePicker from 'vue3-persian-datetime-picker';
 
@@ -272,8 +272,8 @@ const carStore = useCarStore();
 const { cars, carCount } = storeToRefs(carStore);
 const { addCar, deleteCar, updateCar } = carStore;
 
-const driverStore = useStore();
-const { drivers } = storeToRefs(driverStore);
+const driverStore = useDriverStore();
+const { drivers } = driverStore;
 
 const carData = reactive({
   model: '',

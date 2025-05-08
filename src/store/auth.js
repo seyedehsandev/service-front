@@ -34,7 +34,7 @@ export const useAuthStore = defineStore(
     const login = async (identifier, password) => {
       authError.value = null;
       try {
-        const response = await axios.post(`${STRAPI_API_URL}/auth/local`, {
+        const response = await axios.post(`${STRAPI_API_URL}api/auth/local`, {
           identifier,
           password,
         });

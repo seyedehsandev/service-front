@@ -5,75 +5,32 @@ import { ref, computed } from 'vue';
 export const useDriverStore = defineStore(
   'drivers',
   () => {
+    // این آرایه دیگر منبع اصلی داده نیست، Vue Query کش خود را دارد
     const drivers = ref([]);
 
+    // این computed همچنان می‌تواند مفید باشد اگر داده‌های کش شده Vue Query را در drivers کپی کنیم
+    // یا مستقیماً از داده‌های useQuery استفاده کنیم. فعلاً آن را بر اساس ref داخلی نگه می‌داریم.
     const driverCount = computed(() => drivers.value.length);
 
+    // این getter دیگر کاربرد زیادی ندارد اگر از useQuery برای گرفتن تکی هم استفاده کنیم
     const getDriverById = computed(() => {
       return (driverId) =>
         drivers.value.find((driver) => driver.id === driverId);
     });
 
-    const addDriver = (newDriver) => {
-      const newId =
-        drivers.value.length > 0
-          ? Math.max(...drivers.value.map((d) => d.id || 0)) + 1
-          : 1;
-      const driverToAdd = { ...newDriver, id: newId };
-      drivers.value.push(driverToAdd);
-      console.log('Driver added:', driverToAdd);
-    };
+    // اکشن‌های fetch, add, update, delete حذف می‌شوند چون توسط useQuery و useMutation مدیریت خواهند شد.
 
-    const deleteDriverById = (driverId) => {
-      const initialLength = drivers.value.length;
-      drivers.value = drivers.value.filter((driver) => driver.id !== driverId);
-      if (initialLength > drivers.value.length) {
-        console.log('Driver deleted with id:', driverId);
-        return true;
-      }
-      console.warn('Driver not found for deletion with id:', driverId);
-      return false;
-    };
-
-    const updateDriver = (updatedDriver) => {
-      if (!updatedDriver || !updatedDriver.id) {
-        console.error('Cannot update driver: ID is missing in updated data.');
-        return false;
-      }
-      const index = drivers.value.findIndex(
-        (driver) => driver.id === updatedDriver.id
-      );
-      if (index !== -1) {
-        drivers.value[index] = {
-          ...drivers.value[index],
-          ...updatedDriver,
-          id: drivers.value[index].id,
-        };
-        console.log('Driver updated:', drivers.value[index]);
-        return true;
-      }
-      console.warn('Driver not found for update with id:', updatedDriver.id);
-      return false;
-    };
-
-    const fetchDrivers = async () => {
-      console.log('Fetching drivers...');
-
-      if (drivers.value.length === 0) {
-      }
+    // می‌توان یک تابع برای همگام‌سازی داده‌های Vue Query با این استور گذاشت (اختیاری)
+    const setDriversFromQuery = (driversData) => {
+      drivers.value = driversData || [];
     };
 
     return {
-      drivers,
+      drivers, // بیشتر برای نمایش count یا کارهای جانبی
       driverCount,
-      getDriverById,
-      addDriver,
-      deleteDriverById,
-      updateDriver,
-      fetchDrivers,
+      getDriverById, // کاربرد محدود
+      setDriversFromQuery, // اختیاری
     };
-  },
-  {
-    persist: true,
   }
+  // { persist: true }  <-- حذف شد
 );

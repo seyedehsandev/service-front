@@ -34,7 +34,7 @@ export const useAuthStore = defineStore(
     const login = async (identifier, password) => {
       authError.value = null;
       try {
-        const response = await axios.post(`${STRAPI_API_URL}api/auth/local`, {
+        const response = await axios.post(`${STRAPI_API_URL}/api/auth/local`, {
           identifier,
           password,
         });
@@ -46,7 +46,7 @@ export const useAuthStore = defineStore(
         const message = error.response?.data?.error?.message || 'Login failed.';
         authError.value = message;
         clearAuthData();
-        console.error('Login failed (from store):', message);
+        console.error('Login failed (from store):', error);
         throw new Error(message);
       }
     };

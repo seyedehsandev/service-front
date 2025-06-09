@@ -72,7 +72,9 @@
                     :key="index"
                     :class="[
                       'px-4 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
-                      header === 'عملیات' ? 'text-center' : 'text-right',
+                      header === 'عملیات' || header === 'شناسه سفر'
+                        ? 'text-center'
+                        : 'text-right',
                     ]"
                   >
                     {{ header }}

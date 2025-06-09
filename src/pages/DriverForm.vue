@@ -374,6 +374,7 @@ const addMutation = useMutation({
   mutationFn: addDriverAPI,
   onSuccess: (newData) => {
     queryClient.invalidateQueries({ queryKey: ['drivers'] });
+    queryClient.invalidateQueries({ queryKey: ['driversForSelect'] });
     const attributes = newData?.attributes ?? newData ?? {};
     notyf.success(
       `راننده ${attributes?.name ?? ''} ${attributes?.lastName ?? ''} با موفقیت اضافه شد.`
@@ -392,6 +393,7 @@ const updateMutation = useMutation({
   mutationFn: updateDriverAPI,
   onSuccess: (updatedData, variables) => {
     queryClient.invalidateQueries({ queryKey: ['drivers'] });
+    queryClient.invalidateQueries({ queryKey: ['driversForSelect'] });
     const attributes = updatedData?.attributes ?? updatedData ?? {};
     notyf.success(
       `راننده ${attributes?.name ?? ''} ${attributes?.lastName ?? ''} با موفقیت بروزرسانی شد.`
@@ -413,6 +415,7 @@ const deleteMutation = useMutation({
   mutationFn: deleteDriverAPI,
   onSuccess: (deletedData, driverDocumentId) => {
     queryClient.invalidateQueries({ queryKey: ['drivers'] });
+    queryClient.invalidateQueries({ queryKey: ['driversForSelect'] });
     const attributes = deletedData?.attributes ?? deletedData ?? {};
     const name = attributes?.name;
     const lastName = attributes?.lastName;

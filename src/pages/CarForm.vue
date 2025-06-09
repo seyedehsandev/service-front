@@ -503,7 +503,7 @@ const addMutation = useMutation({
   mutationFn: addVehicleAPI,
   onSuccess: (newData) => {
     queryClient.invalidateQueries({ queryKey: ['vehicles'] });
-    // Assuming 'newData' might be nested or flat, adjust access if needed
+    queryClient.invalidateQueries({ queryKey: ['vehiclesForSelect'] });
     const brand = newData?.brand ?? newData?.attributes?.brand ?? '';
     const model = newData?.model ?? newData?.attributes?.model ?? '';
     notyf.success(`خودرو ${brand} ${model} با موفقیت اضافه شد.`);
@@ -520,9 +520,8 @@ const addMutation = useMutation({
 const updateMutation = useMutation({
   mutationFn: updateVehicleAPI,
   onSuccess: (updatedData, variables) => {
-    // variables.docId holds documentId
     queryClient.invalidateQueries({ queryKey: ['vehicles'] });
-    // Assuming 'updatedData' might be nested or flat, adjust access if needed
+    queryClient.invalidateQueries({ queryKey: ['vehiclesForSelect'] });
     const brand = updatedData?.brand ?? updatedData?.attributes?.brand ?? '';
     const model = updatedData?.model ?? updatedData?.attributes?.model ?? '';
     notyf.success(`خودرو ${brand} ${model} با موفقیت بروزرسانی شد.`);
@@ -541,7 +540,7 @@ const deleteMutation = useMutation({
   mutationFn: deleteVehicleAPI,
   onSuccess: (deletedData, docId) => {
     queryClient.invalidateQueries({ queryKey: ['vehicles'] });
-    // Assuming 'deletedData' might be nested or flat, adjust access if needed
+    queryClient.invalidateQueries({ queryKey: ['vehiclesForSelect'] });
     const model = deletedData?.model ?? deletedData?.attributes?.model;
     const brand = deletedData?.brand ?? deletedData?.attributes?.brand;
     let message = '';

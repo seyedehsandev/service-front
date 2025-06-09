@@ -641,9 +641,50 @@
         >
           <div
             v-if="selectedTripForDetails"
-            class="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
-            @click="selectedTripForDetails = null"
-          ></div>
+            class="fixed inset-0 z-50 flex items-center justify-center p-4"
+          >
+            <div
+              class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col"
+            >
+              <div
+                class="p-4 border-b border-gray-200 flex justify-between items-center flex-shrink-0"
+              >
+                <h3 class="text-lg font-semibold text-gray-800">
+                  جزئیات سفر (ID: {{ selectedTripForDetails.documentId }})
+                </h3>
+                <button
+                  @click="selectedTripForDetails = null"
+                  class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-full transition-colors duration-200"
+                  title="بستن"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="p-6 overflow-y-auto flex-1"></div>
+              <div
+                class="p-4 border-t border-gray-200 bg-gray-50 flex justify-end flex-shrink-0"
+              >
+                <button
+                  @click="selectedTripForDetails = null"
+                  class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                >
+                  بستن
+                </button>
+              </div>
+            </div>
+          </div>
         </transition>
         <transition
           enter-active-class="transition ease-out duration-300"
@@ -696,36 +737,48 @@
                       {{ formatDate(selectedTripForDetails.date) }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">راننده:</dt>
                     <dd class="text-gray-900 mt-1">
-                      {{ selectedTripForDetails.driver_name ?? '' }}
-                      {{ selectedTripForDetails.driver_lastName ?? '' }} (ID:
-                      {{ selectedTripForDetails.driver }})
+                      {{ selectedTripForDetails.driver?.name ?? '' }}
+                      {{
+                        selectedTripForDetails.driver?.lastName ??
+                        '(راننده نامشخص)'
+                      }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">خودرو:</dt>
                     <dd class="text-gray-900 mt-1">
-                      {{ selectedTripForDetails.vehicle_brand ?? '' }}
-                      {{ selectedTripForDetails.vehicle_model ?? '' }} ({{
-                        selectedTripForDetails.vehicle_plate ?? ''
-                      }}
-                      / ID: {{ selectedTripForDetails.vehicle }})
+                      {{ selectedTripForDetails.vehicle?.brand ?? '' }}
+                      {{ selectedTripForDetails.vehicle?.model ?? '' }}
+                      <span
+                        v-if="selectedTripForDetails.vehicle"
+                        class="text-gray-400"
+                      >
+                        ({{
+                          selectedTripForDetails.vehicle.plate ?? 'پلاک نامشخص'
+                        }})
+                      </span>
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">مبدا:</dt>
                     <dd class="text-gray-900 mt-1">
                       {{ selectedTripForDetails.origin }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">مقصد:</dt>
                     <dd class="text-gray-900 mt-1">
                       {{ selectedTripForDetails.destination }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">
                       کیلومتر شمار شروع:
@@ -737,6 +790,7 @@
                       }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">
                       کیلومتر شمار پایان:
@@ -748,6 +802,7 @@
                       }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">مسافت طی شده:</dt>
                     <dd class="text-gray-900 mt-1">
@@ -759,6 +814,7 @@
                       }}
                     </dd>
                   </div>
+
                   <div class="sm:col-span-1">
                     <dt class="font-medium text-gray-500">
                       نوع سوخت اضافه شده:
@@ -959,7 +1015,10 @@ const fetchTripsAPI = async () => {
 
 const fetchDriversForSelectAPI = async () => {
   try {
-    const params = { fields: ['name', 'lastName'], pagination: { limit: -1 } };
+    const params = {
+      fields: ['name', 'lastName'],
+      pagination: { limit: 1000 },
+    };
     const response = await axios.get(DRIVERS_API_ENDPOINT, { params });
     console.log(
       'Drivers for select Raw Response:',
@@ -976,7 +1035,7 @@ const fetchVehiclesForSelectAPI = async () => {
   try {
     const params = {
       fields: ['plate', 'brand', 'model'],
-      pagination: { limit: -1 },
+      pagination: { limit: 1000 },
     };
     const response = await axios.get(VEHICLES_API_ENDPOINT, { params });
     console.log(

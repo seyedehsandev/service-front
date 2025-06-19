@@ -96,6 +96,12 @@
                   @click="showDetails(item)"
                   class="hover:bg-blue-50 transition-colors duration-150 text-sm cursor-pointer"
                 >
+                  <!-- ستون جدید: شماره سفر -->
+                  <td
+                    class="px-4 py-3 text-gray-700 whitespace-nowrap text-center"
+                  >
+                    {{ item.id ?? '-' }}
+                  </td>
                   <td
                     class="px-4 py-3 text-gray-700 whitespace-nowrap text-right"
                   >
@@ -104,7 +110,7 @@
                   <td
                     class="px-4 py-3 text-gray-700 whitespace-nowrap text-right"
                   >
-                    {{ item.driver?.name ?? '' }}
+                    {{ item.driver?.name ?? '-' }}
                     {{
                       item.driver?.lastName ??
                       `(ID: ${item.driver?.documentId})`
@@ -131,11 +137,6 @@
                     {{
                       calculateDistance(item.startOdometer, item.endOdometer)
                     }}
-                  </td>
-                  <td
-                    class="px-4 py-3 text-gray-700 whitespace-nowrap font-medium text-right"
-                  >
-                    {{ (item.totalCost ?? 0).toLocaleString() }} T
                   </td>
                   <td class="px-4 py-3 text-center whitespace-nowrap">
                     <div class="flex items-center justify-center gap-x-2">
@@ -711,7 +712,7 @@
                 class="p-4 border-b border-gray-200 flex justify-between items-center flex-shrink-0"
               >
                 <h3 class="text-lg font-semibold text-gray-800">
-                  جزئیات سفر (ID: {{ selectedTripForDetails.documentId }})
+                  جزئیات سفر (شماره سفر: {{ selectedTripForDetails.id }})
                 </h3>
                 <button
                   @click="selectedTripForDetails = null"
@@ -909,18 +910,6 @@
                     </dd>
                   </div>
                   <div class="sm:col-span-2">
-                    <dt class="font-medium text-gray-500">
-                      هزینه کل (از بک‌اند):
-                    </dt>
-                    <dd class="text-gray-900 mt-1 font-semibold">
-                      {{
-                        selectedTripForDetails.totalCost?.toLocaleString() ??
-                        '۰'
-                      }}
-                      تومان
-                    </dd>
-                  </div>
-                  <div class="sm:col-span-2">
                     <dt class="font-medium text-gray-500">توضیحات:</dt>
                     <dd class="text-gray-900 mt-1 whitespace-pre-wrap">
                       {{ selectedTripForDetails.description || '-' }}
@@ -970,6 +959,8 @@ const isFormOpen = ref(false);
 const editingTripId = ref(null);
 const deletingTripId = ref(null);
 const selectedTripForDetails = ref(null);
+const currentPage = ref(1);
+const pageSize = ref(10);
 
 const initialTripData = {
   date: null,
@@ -993,13 +984,13 @@ const initialTripData = {
 const tripData = reactive({ ...initialTripData });
 
 const tableHeaders = [
+  'شماره سفر',
   'تاریخ',
   'راننده',
   'خودرو',
   'مبدا',
   'مقصد',
   'مسافت (KM)',
-  'هزینه کل (T)',
   'عملیات',
 ];
 

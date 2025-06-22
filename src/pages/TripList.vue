@@ -189,6 +189,32 @@
                 </tr>
               </tbody>
             </table>
+            <!-- کامپوننت پیجینیشن -->
+            <div
+              class="flex justify-center items-center gap-4 py-4 border-t border-gray-200"
+            >
+              <button
+                @click="goToPreviousPage"
+                :disabled="currentPage.value === 1"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
+              >
+                قبلی
+              </button>
+              <span class="text-gray-700">
+                صفحه {{ currentPage.value }} از
+                {{ tripsQuery.data?.value?.meta?.pagination?.pageCount ?? 1 }}
+              </span>
+              <button
+                @click="goToNextPage"
+                :disabled="
+                  currentPage.value >=
+                  (tripsQuery.data?.value?.meta?.pagination?.pageCount ?? 1)
+                "
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
+              >
+                بعدی
+              </button>
+            </div>
           </div>
         </div>
         <div v-else class="text-center py-10 text-gray-500">
@@ -994,22 +1020,25 @@ const tableHeaders = [
   'عملیات',
 ];
 
-const fetchTripsAPI = async () => {
+const fetchTripsAPI = async ({ queryKey }) => {
+  const [, page] = queryKey;
   try {
     const params = {
       populate: ['driver', 'vehicle'],
       sort: ['date:desc'],
+      pagination: {
+        page: page,
+        pageSize: pageSize.value,
+      },
     };
     const response = await axios.get(TRIPS_API_ENDPOINT, { params });
     console.log('Trips Raw Response:', JSON.stringify(response.data, null, 2));
-
     return response.data;
   } catch (error) {
     console.error('Error fetching trips:', error);
     throw error;
   }
 };
-
 const fetchDriversForSelectAPI = async () => {
   try {
     const params = {
@@ -1057,7 +1086,7 @@ const updateTripAPI = async ({ tripId, data }) => {
   const response = await axios.put(`${TRIPS_API_ENDPOINT}/${tripId}`, {
     data: data,
   });
-  return response.data?.data; // Expect { id: ..., field1: ..., ... } (flat)
+  return response.data?.data;
 };
 
 const deleteTripAPI = async (tripId) => {
@@ -1067,7 +1096,7 @@ const deleteTripAPI = async (tripId) => {
 };
 
 const tripsQuery = useQuery({
-  queryKey: ['trips'],
+  queryKey: ['trips', currentPage.value],
   queryFn: fetchTripsAPI,
   staleTime: 5 * 60 * 1000,
   refetchOnWindowFocus: false,
@@ -1287,5 +1316,18 @@ function calculateDistance(start, end) {
     return (end - start).toLocaleString() + ' km';
   }
   return '-';
+}
+
+function goToPreviousPage() {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+}
+
+function goToNextPage() {
+  const pageCount = tripsQuery.data?.value?.meta?.pagination?.pageCount ?? 1;
+  if (currentPage.value < pageCount) {
+    currentPage.value++;
+  }
 }
 </script>

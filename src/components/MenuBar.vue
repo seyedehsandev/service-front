@@ -99,15 +99,21 @@ const router = useRouter();
 
 const isOpen = ref(false);
 
+// const menuItems = [
+//   { name: 'داشبورد', to: '/dashboard' },
+//   { name: 'گزارشات', to: '/reports' },
+//   { name: 'خودرو ها', to: '/cars' },
+//   { name: 'راننده ها', to: '/drivers' },
+//   { name: 'سفر ها', to: '/trip-list' },
+//   { name: 'سابقه تعمیرات', to: '/repair-history' },
+//   { name: 'بیمه', to: '/insurance-check' },
+//   { name: 'هزینه‌ها', to: '/expenses' },
+// ];
 const menuItems = [
   { name: 'داشبورد', to: '/dashboard' },
-  { name: 'گزارشات', to: '/reports' },
   { name: 'خودرو ها', to: '/cars' },
   { name: 'راننده ها', to: '/drivers' },
   { name: 'سفر ها', to: '/trip-list' },
-  { name: 'سابقه تعمیرات', to: '/repair-history' },
-  { name: 'بیمه', to: '/insurance-check' },
-  { name: 'هزینه‌ها', to: '/expenses' },
 ];
 
 const toggle = () => {

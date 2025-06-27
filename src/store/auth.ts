@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import axios from 'axios';
+import type { User } from '@/types';
 
 const STRAPI_API_URL = import.meta.env.VITE_STRAPI_API_URL;
 
@@ -8,17 +9,13 @@ export const useAuthStore = defineStore(
   'auth',
   () => {
     const isLoggedIn = ref(false);
-    const authUser = ref(null);
-    const authToken = ref(null);
-    const authError = ref(null);
+    const authUser: Ref<User | null> = ref(null);
+    const authToken: Ref<string | null> = ref(null);
+    const authError: Ref<string | null> = ref(null);
 
-    const setAuthData = (user, token) => {
+    const setAuthData = (user: User, token: string) => {
       isLoggedIn.value = true;
-      authUser.value = {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      };
+      authUser.value = user;
       authToken.value = token;
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       authError.value = null;
@@ -31,7 +28,7 @@ export const useAuthStore = defineStore(
       delete axios.defaults.headers.common['Authorization'];
     };
 
-    const login = async (identifier, password) => {
+    const login = async (identifier: string, password: string) => {
       authError.value = null;
       try {
         const response = await axios.post(`${STRAPI_API_URL}/api/auth/local`, {
@@ -42,7 +39,7 @@ export const useAuthStore = defineStore(
         setAuthData(user, jwt);
         console.log('Login successful (from store)');
         return true;
-      } catch (error) {
+      } catch (error: any) {
         const message = error.response?.data?.error?.message || 'Login failed.';
         authError.value = message;
         clearAuthData();
@@ -78,8 +75,6 @@ export const useAuthStore = defineStore(
     };
   },
   {
-    persist: {
-      paths: ['isLoggedIn', 'authUser', 'authToken'],
-    },
+    persist: true,
   }
 );

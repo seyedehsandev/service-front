@@ -1,13 +1,15 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import {
+  createWebHistory,
+  createRouter,
+  type RouteLocationNormalized,
+  type NavigationGuardNext,
+} from 'vue-router';
 import { useAuthStore } from '../store/auth';
 
 const routes = [
   {
     path: '/',
     redirect: '/auth/login',
-    // name: 'Home',
-    // component: () => import('../pages/Home.vue'),
-    // meta: { title: 'خانه' },
   },
   {
     path: '/auth/login',
@@ -84,37 +86,40 @@ const router = createRouter({
 
 const DEFAULT_TITLE = 'سیستم مدیریت حمل و نقل';
 
-router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore();
+router.beforeEach(
+  async (
+    to: RouteLocationNormalized,
+    _from: RouteLocationNormalized,
+    next: NavigationGuardNext
+  ) => {
+    const authStore = useAuthStore();
 
-  const requiresAuth = to.meta.requiresAuth;
-  const guestOnly = to.meta.guestOnly;
+    const requiresAuth = to.meta.requiresAuth;
+    const guestOnly = to.meta.guestOnly;
 
-  if (!authStore.isLoggedIn && localStorage.getItem('auth')) {
-    authStore.checkAuth();
-  }
+    // checkAuth is automatically called by pinia-plugin-persistedstate
+    const isLoggedIn = authStore.isLoggedIn;
 
-  const isLoggedIn = authStore.isLoggedIn;
+    if (requiresAuth && !isLoggedIn) {
+      next({ name: 'Login', query: { redirect: to.fullPath } });
+    } else if (guestOnly && isLoggedIn) {
+      next({ name: 'Dashboard' });
+    } else {
+      let pageTitle = DEFAULT_TITLE;
 
-  if (requiresAuth && !isLoggedIn) {
-    next({ name: 'Login', query: { redirect: to.fullPath } });
-  } else if (guestOnly && isLoggedIn) {
-    next({ name: 'Dashboard' });
-  } else {
-    let pageTitle = DEFAULT_TITLE;
-
-    if (to.meta && to.meta.title) {
-      if (typeof to.meta.title === 'function') {
-        pageTitle = to.meta.title(to) || DEFAULT_TITLE;
-      } else {
-        pageTitle = to.meta.title;
+      if (to.meta && to.meta.title) {
+        if (typeof to.meta.title === 'function') {
+          pageTitle = to.meta.title(to) || DEFAULT_TITLE;
+        } else {
+          pageTitle = to.meta.title as string;
+        }
       }
+
+      document.title = pageTitle;
+
+      next();
     }
-
-    document.title = pageTitle;
-
-    next();
   }
-});
+);
 
 export default router;

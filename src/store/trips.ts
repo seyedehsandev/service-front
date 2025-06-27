@@ -1,16 +1,17 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
+import type { Trip } from '@/types';
 
 export const useTripStore = defineStore('trips', () => {
-  const trips = ref([]);
+  const trips = ref<Trip[]>([]);
 
   const tripCount = computed(() => trips.value.length);
 
   const getTripById = computed(() => {
-    return (tripId) => trips.value.find((trip) => trip.id === tripId);
+    return (tripId: number) => trips.value.find((trip) => trip.id === tripId);
   });
 
-  const setTripsFromQuery = (tripsData) => {
+  const setTripsFromQuery = (tripsData: Trip[]) => {
     trips.value = tripsData || [];
   };
 

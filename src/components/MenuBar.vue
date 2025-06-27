@@ -40,7 +40,12 @@
             />
           </svg>
         </button>
-
+        <div class="text-center py-4">
+          <span
+            class="px-4 py-3 rounded-xl transition-all duration-300 cursor-pointer font-medium text-gray-500 hover:text-black"
+            >{{ authStore.authUser.email.toUpperCase() }}</span
+          >
+        </div>
         <ul class="flex flex-col gap-2">
           <router-link
             v-for="(item, index) in menuItems"
@@ -86,7 +91,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../store/auth.js';
+import { useAuthStore } from '../store/auth';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
@@ -94,17 +99,21 @@ const router = useRouter();
 
 const isOpen = ref(false);
 
+// const menuItems = [
+//   { name: 'داشبورد', to: '/dashboard' },
+//   { name: 'گزارشات', to: '/reports' },
+//   { name: 'خودرو ها', to: '/cars' },
+//   { name: 'راننده ها', to: '/drivers' },
+//   { name: 'سفر ها', to: '/trip-list' },
+//   { name: 'سابقه تعمیرات', to: '/repair-history' },
+//   { name: 'بیمه', to: '/insurance-check' },
+//   { name: 'هزینه‌ها', to: '/expenses' },
+// ];
 const menuItems = [
   { name: 'داشبورد', to: '/dashboard' },
-  { name: 'تاریخ', to: '/date' },
-  { name: 'گزارشات', to: '/reports' },
   { name: 'خودرو ها', to: '/cars' },
   { name: 'راننده ها', to: '/drivers' },
   { name: 'سفر ها', to: '/trip-list' },
-  { name: 'سابقه تعمیرات', to: '/repair-history' },
-  { name: 'بیمه', to: '/insurance-check' },
-  { name: 'هزینه‌ها', to: '/expenses' },
-  { name: 'سوخت', to: '/fuel' },
 ];
 
 const toggle = () => {

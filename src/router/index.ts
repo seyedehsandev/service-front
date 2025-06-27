@@ -45,13 +45,13 @@ const routes = [
     path: '/cars',
     name: 'Cars',
     component: () => import('../pages/CarForm.vue'),
-    meta: { requiresAuth: true, title: 'ماشین ها' },
+    meta: { requiresAuth: true, title: 'خودرو ها' },
   },
   {
     path: '/drivers',
     name: 'Drivers',
     component: () => import('../pages/DriverForm.vue'),
-    meta: { requiresAuth: true, title: 'راننده ها' },
+    meta: { requiresAuth: true, title: 'رانندگان' },
   },
   {
     path: '/repair-history',

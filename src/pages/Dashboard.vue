@@ -2,7 +2,10 @@
   <div dir="rtl" class="font-vazir">
     <div class="w-screen min-h-screen flex rounded-md bg-gray-50">
       <div class="w-full px-4 md:px-8">
-        <header class="border-b border-gray-200">
+        <header class="border-b border-gray-200 flex items-center gap-x-2">
+          <router-link to="/dashboard">
+            <img src="/favicon.png" alt="" class="w-10 h-10" />
+          </router-link>
           <h1 class="text-2xl md:text-3xl py-4 px-2 font-bold text-gray-800">
             داشبورد
           </h1>
@@ -16,7 +19,7 @@
             class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 cursor-pointer"
           >
             <div class="flex items-center justify-between">
-              <h3 class="text-lg font-semibold text-gray-800">راننده‌ها</h3>
+              <h3 class="text-lg font-semibold text-gray-800">رانندگان</h3>
               <i class="fas fa-user text-blue-500 text-2xl"></i>
             </div>
             <p class="text-sm text-gray-500 mt-2">مدیریت اطلاعات راننده‌ها</p>

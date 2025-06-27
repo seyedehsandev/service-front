@@ -112,7 +112,7 @@ const isOpen = ref(false);
 const menuItems = [
   { name: 'داشبورد', to: '/dashboard' },
   { name: 'خودرو ها', to: '/cars' },
-  { name: 'راننده ها', to: '/drivers' },
+  { name: 'رانندگان', to: '/drivers' },
   { name: 'سفر ها', to: '/trip-list' },
 ];
 

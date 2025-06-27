@@ -4,9 +4,10 @@ import { useAuthStore } from '../store/auth.js';
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../pages/Home.vue'),
-    meta: { title: 'خانه' },
+    redirect: '/auth/login',
+    // name: 'Home',
+    // component: () => import('../pages/Home.vue'),
+    // meta: { title: 'خانه' },
   },
   {
     path: '/auth/login',

@@ -4,10 +4,10 @@ import App from './App.vue';
 import { createPinia } from 'pinia';
 import piniaPersist from 'pinia-plugin-persistedstate';
 //@ts-ignore
-import router from './router';
+import router from './router/index.js';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query';
-import { useAuthStore } from './store/auth.js';
+import { useAuthStore } from './store/auth';
 
 const pinia = createPinia();
 pinia.use(piniaPersist);

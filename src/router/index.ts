@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router';
-import { useAuthStore } from '../store/auth.js';
+import { useAuthStore } from '../store/auth';
 
 const routes = [
   {

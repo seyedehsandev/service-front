@@ -91,7 +91,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useAuthStore } from '../store/auth.js';
+import { useAuthStore } from '../store/auth';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();

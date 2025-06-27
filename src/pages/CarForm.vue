@@ -439,20 +439,16 @@ const addVehicleAPI = async (newVehiclePayload) => {
     data: newVehiclePayload,
   });
   const addedData = response.data?.data;
-  // Assuming add response might still have attributes nesting? Adjust if needed.
   return addedData
     ? { id: addedData.id, ...addedData.attributes }
     : response.data;
 };
 
 const updateVehicleAPI = async ({ docId, data }) => {
-  // Renamed vehicleId to docId
-  // Use docId in the URL
   const response = await axios.put(`${VEHICLES_API_ENDPOINT}/${docId}`, {
     data: data,
   });
   const updatedData = response.data?.data;
-  // Assuming update response might still have attributes nesting? Adjust if needed.
   return updatedData
     ? { id: updatedData.id, ...updatedData.attributes }
     : response.data;
@@ -462,7 +458,6 @@ const deleteVehicleAPI = async (docId) => {
   deletingCarDocId.value = docId; // Use the correct ref name
   const response = await axios.delete(`${VEHICLES_API_ENDPOINT}/${docId}`);
   const deletedData = response.data?.data;
-  // Assuming delete response might still have attributes nesting? Adjust if needed.
   return deletedData
     ? { id: deletedData.id, ...deletedData.attributes }
     : response.data;

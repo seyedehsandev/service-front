@@ -65,7 +65,7 @@
 <script setup>
 import { reactive, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '../store/auth.js';
+import { useAuthStore } from '../store/auth';
 import useVuelidate from '@vuelidate/core';
 import { minLength, required, email } from '@vuelidate/validators';
 import { Notyf } from 'notyf';

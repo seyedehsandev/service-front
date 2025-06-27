@@ -392,8 +392,8 @@ const notyf = new Notyf({
 });
 
 const isFormOpen = ref(false);
-const editingCarDocId = ref(null); // Changed from editingCarId to store documentId
-const deletingCarDocId = ref(null); // Changed from deletingCarId
+const editingCarDocId = ref(null);
+const deletingCarDocId = ref(null);
 
 const initialVehicleData = {
   model: '',

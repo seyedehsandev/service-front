@@ -239,7 +239,7 @@
 </template>
 <script setup>
 import { ref, computed, reactive, onMounted } from 'vue';
-import { useCarStore } from './../store/cars.js';
+import { useCarStore } from './../store/cars';
 import { useExpenseStore } from '../store/expenses';
 import { storeToRefs } from 'pinia';
 import DatePicker from 'vue3-persian-datetime-picker';

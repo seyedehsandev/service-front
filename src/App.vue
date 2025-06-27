@@ -1,6 +1,6 @@
 <script setup>
 import MenuBar from './components/MenuBar.vue';
-import { useAuthStore } from './store/auth.js';
+import { useAuthStore } from './store/auth';
 import { computed } from 'vue';
 
 const authStore = useAuthStore();

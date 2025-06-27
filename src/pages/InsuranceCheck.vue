@@ -54,7 +54,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useCarStore } from './../store/cars.js';
+import { useCarStore } from './../store/cars';
 import { storeToRefs } from 'pinia';
 
 const { cars } = storeToRefs(useCarStore());

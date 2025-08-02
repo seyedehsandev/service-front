@@ -1027,12 +1027,11 @@ const fetchTripsAPI = async ({ queryKey }) => {
   const [, page] = queryKey;
   try {
     const params = {
-      populate: ['driver', 'vehicle'],
-      sort: ['date:desc'],
-      pagination: {
-        page: page,
-        pageSize: pageSize.value,
-      },
+      'populate[0]': 'driver',
+      'populate[1]': 'vehicle',
+      'sort[0]': 'date:desc',
+      'pagination[page]': page,
+      'pagination[pageSize]': pageSize.value,
     };
     const response = await axios.get(TRIPS_API_ENDPOINT, { params });
     console.log('Trips Raw Response:', JSON.stringify(response.data, null, 2));
